@@ -34,13 +34,7 @@ function fibonacci(n) {
 
 // Route to serve the HTML page
 app.get('/', (req, res) => {
-    // Generate test data
-    const arraySize = 1000;
-    const testArray = Array.from({ length: arraySize }, () => Math.floor(Math.random() * 1000));
     const fibNumber = 35;
-
-    // Measure algorithms
-    const bubbleSortResult = measureAlgorithm(bubbleSort, testArray);
     const fibonacciResult = measureAlgorithm(fibonacci, fibNumber);
 
     // Create HTML content
@@ -66,6 +60,26 @@ app.get('/', (req, res) => {
                     color: #2c5282;
                     font-weight: bold;
                 }
+                button {
+                    background-color: #4299e1;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
+                button:hover {
+                    background-color: #2b6cb0;
+                }
+                #arrayDisplay {
+                    margin: 10px 0;
+                    word-wrap: break-word;
+                }
+                #executionTime {
+                    margin-top: 10px;
+                    font-weight: bold;
+                }
             </style>
         </head>
         <body>
@@ -73,8 +87,9 @@ app.get('/', (req, res) => {
             
             <div class="algorithm">
                 <h2>Bubble Sort</h2>
-                <p>Input: Array of ${arraySize} random numbers</p>
-                <p>Execution Time: <span class="time">${bubbleSortResult.executionTime} ms</span></p>
+                <button onclick="runBubbleSort()">Run Bubble Sort</button>
+                <div id="arrayDisplay"></div>
+                <div id="executionTime"></div>
             </div>
 
             <div class="algorithm">
@@ -83,6 +98,47 @@ app.get('/', (req, res) => {
                 <p>Result: ${fibonacciResult.result}</p>
                 <p>Execution Time: <span class="time">${fibonacciResult.executionTime} ms</span></p>
             </div>
+
+            <script>
+                function bubbleSort(arr) {
+                    const array = [...arr];
+                    for (let i = 0; i < array.length; i++) {
+                        for (let j = 0; j < array.length - i - 1; j++) {
+                            if (array[j] > array[j + 1]) {
+                                [array[j], array[j + 1]] = [array[j + 1], array[j]];
+                            }
+                        }
+                    }
+                    return array;
+                }
+
+                function runBubbleSort() {
+                    // Generate random array
+                    const arraySize = 1000;
+                    const array = Array.from({ length: arraySize }, 
+                        () => Math.floor(Math.random() * 1000)
+                    );
+                    
+                    // Display initial array (first 20 elements)
+                    document.getElementById('arrayDisplay').innerHTML = 
+                        '<p><strong>Initial array (first 20 elements):</strong><br>' + 
+                        array.slice(0, 20).join(', ') + '...</p>';
+                    
+                    // Measure sort time
+                    const start = performance.now();
+                    const sortedArray = bubbleSort(array);
+                    const end = performance.now();
+                    const executionTime = (end - start).toFixed(4);
+                    
+                    // Display results
+                    document.getElementById('arrayDisplay').innerHTML += 
+                        '<p><strong>Sorted array (first 20 elements):</strong><br>' + 
+                        sortedArray.slice(0, 20).join(', ') + '...</p>';
+                    
+                    document.getElementById('executionTime').innerHTML = 
+                        'Execution Time: <span class="time">' + executionTime + ' ms</span>';
+                }
+            </script>
         </body>
         </html>
     `;
