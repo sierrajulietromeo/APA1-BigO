@@ -3,46 +3,17 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// Function to measure algorithm execution time
-function measureAlgorithm(algorithm, input) {
-    const start = performance.now();
-    const result = algorithm(input);
-    const end = performance.now();
-    return {
-        executionTime: (end - start).toFixed(4),
-        result: result
-    };
-}
 
-// Sample algorithms
-function bubbleSort(arr) {
-    const array = [...arr];
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array.length - i - 1; j++) {
-            if (array[j] > array[j + 1]) {
-                [array[j], array[j + 1]] = [array[j + 1], array[j]];
-            }
-        }
-    }
-    return array;
-}
-
-function fibonacci(n) {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
 
 // Route to serve the HTML page
 app.get('/', (req, res) => {
-    const fibNumber = 35;
-    const fibonacciResult = measureAlgorithm(fibonacci, fibNumber);
 
     // Create HTML content
     const html = `
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Algorithm Timer</title>
+            <title>Bubble Sort</title>
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -83,20 +54,12 @@ app.get('/', (req, res) => {
             </style>
         </head>
         <body>
-            <h1>Algorithm Execution Times</h1>
             
             <div class="algorithm">
                 <h2>Bubble Sort</h2>
                 <button onclick="runBubbleSort()">Run Bubble Sort</button>
                 <div id="arrayDisplay"></div>
                 <div id="executionTime"></div>
-            </div>
-
-            <div class="algorithm">
-                <h2>Fibonacci</h2>
-                <p>Input: n = ${fibNumber}</p>
-                <p>Result: ${fibonacciResult.result}</p>
-                <p>Execution Time: <span class="time">${fibonacciResult.executionTime} ms</span></p>
             </div>
 
             <script>
