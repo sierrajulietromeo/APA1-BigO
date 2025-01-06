@@ -28,7 +28,8 @@ const createProgressBar = (current, total, width = 30) => {
     return `[${bar}] ${percentage}%${percentage === 100 ? ' ✨' : ''}`;
 };
 
-const displaySearchAttempt = async (step, value, target) => {
+const displaySearchAttempt = async (value, target) => {
+    await sleep(5000);
     const compareFrames = [
         'Comparing',
         'Comparing.',
@@ -39,7 +40,6 @@ const displaySearchAttempt = async (step, value, target) => {
     for (const frame of compareFrames) {
         console.log(`\n${frame}`);
         console.log(`${COLOURS.yellow}${value} ${COLOURS.gray}vs${COLOURS.reset} ${COLOURS.green}${target}${COLOURS.reset}`);
-        await sleep(200);
         console.clear();
     }
 };
@@ -53,7 +53,7 @@ const countdown = async () => {
         console.log(`\n${COLOURS.yellow}${i}${COLOURS.reset}`);
         console.log('\n');
         console.log(createSparkles(10));
-        await sleep(500);
+        await sleep(800);
     }
     console.clear();
     console.log('\n\n');
@@ -61,7 +61,7 @@ const countdown = async () => {
     console.log(`\n${COLOURS.green}GO!${COLOURS.reset}`);
     console.log('\n');
     console.log(createSparkles(20));
-    await sleep(300);
+    await sleep(200);
 };
 
 const animateTransition = async () => {
@@ -81,7 +81,7 @@ const animateTransition = async () => {
         console.log('\n\n');
         console.log(`${COLOURS.cyan}${frame}${COLOURS.reset}`);
         console.log('\n\n');
-        await sleep(50);
+        await sleep(200);
     }
 };
 
@@ -141,7 +141,7 @@ const animateBinarySearch = async (arr, target) => {
             right = mid - 1;
         }
         
-        await sleep(800);
+        await sleep(1500);
     }
     
     displayResults(found, foundIndex, steps, target, history, arr);
@@ -166,13 +166,13 @@ const displaySearchHistory = (history, arr) => {
     
     history.forEach(state => {
         console.log(`\n${COLOURS.bright}Step ${state.step}:${COLOURS.reset}`);
-        const stepVisual = visualizeHistoryStep(state, arr);
+        const stepVisual = visualiseHistoryStep(state, arr);
         console.log(stepVisual);
         console.log(getDirectionMessage(state));
     });
 };
 
-const visualizeHistoryStep = (state, arr) => {
+const visualiseHistoryStep = (state, arr) => {
     return arr.map((num, index) => {
         const boldNum = `${COLOURS.bright}${num}${COLOURS.reset}`;
         if (index === state.mid) return `${COLOURS.red}|${boldNum}|${COLOURS.reset}`;
@@ -188,7 +188,7 @@ const getDirectionMessage = (state) => {
     return baseMessage + `${COLOURS.blue}(Too ${state.direction === 'right' ? 'small' : 'large'})${COLOURS.reset}`;
 };
 
-// Initialize and run the visualisation
+// Initialise and run the visualisation
 const ARRAY_SIZE = 15;
 const arr = Array.from({ length: ARRAY_SIZE }, (_, i) => i * 2);
 const target = arr[Math.floor(Math.random() * arr.length)];
