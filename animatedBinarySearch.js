@@ -1,4 +1,4 @@
-const colors = {
+const colours = {
     reset: '\x1b[0m',
     bright: '\x1b[1m',
     red: '\x1b[31m',
@@ -19,8 +19,8 @@ async function countdown() {
         console.clear();
         console.log('\n\n');
         console.log(createSparkles(10));
-        console.log(`\n${colors.bright}Starting search in...${colors.reset}`);
-        console.log(`\n${colors.yellow}${i}${colors.reset}`);
+        console.log(`\n${colours.bright}Starting search in...${colours.reset}`);
+        console.log(`\n${colours.yellow}${i}${colours.reset}`);
         console.log('\n');
         console.log(createSparkles(10));
         await sleep(500);
@@ -28,7 +28,7 @@ async function countdown() {
     console.clear();
     console.log('\n\n');
     console.log(createSparkles(20));
-    console.log(`\n${colors.green}GO!${colors.reset}`);
+    console.log(`\n${colours.green}GO!${colours.reset}`);
     console.log('\n');
     console.log(createSparkles(20));
     await sleep(300);
@@ -49,7 +49,7 @@ async function animateTransition() {
     for (let frame of frames) {
         console.clear();
         console.log('\n\n');
-        console.log(`${colors.cyan}${frame}${colors.reset}`);
+        console.log(`${colours.cyan}${frame}${colours.reset}`);
         console.log('\n\n');
         await sleep(50);
     }
@@ -72,15 +72,15 @@ function createProgressBar(current, total, width = 30) {
 
 async function displaySearchAttempt(step, value, target) {
     const compareFrames = [
-        `${colors.cyan}Comparing${colors.reset}`,
-        `${colors.cyan}Comparing.${colors.reset}`,
-        `${colors.cyan}Comparing..${colors.reset}`,
-        `${colors.cyan}Comparing...${colors.reset}`
+        `${colours.cyan}Comparing${colours.reset}`,
+        `${colours.cyan}Comparing.${colours.reset}`,
+        `${colours.cyan}Comparing..${colours.reset}`,
+        `${colours.cyan}Comparing...${colours.reset}`
     ];
     
     for (let frame of compareFrames) {
         console.log(`\n${frame}`);
-        console.log(`${colors.yellow}${value} ${colors.gray}vs${colors.reset} ${colors.green}${target}${colors.reset}`);
+        console.log(`${colours.yellow}${value} ${colours.gray}vs${colours.reset} ${colours.green}${target}${colours.reset}`);
         await sleep(200);
         console.clear();
     }
@@ -113,29 +113,29 @@ async function animateBinarySearch(arr, target) {
         // Create the visualization
         let visual = arr.map((num, index) => {
             if (index === mid) {
-                return `${colors.red}|${num}|${colors.reset}`;
+                return `${colours.red}|${num}|${colours.reset}`;
             }
             if (index === left) {
-                return `${colors.yellow}[${num}]${colors.reset}`;
+                return `${colours.yellow}[${num}]${colours.reset}`;
             }
             if (index === right) {
-                return `${colors.yellow}[${num}]${colors.reset}`;
+                return `${colours.yellow}[${num}]${colours.reset}`;
             }
             if (index >= left && index <= right) {
-                return `${colors.cyan} ${num} ${colors.reset}`;
+                return `${colours.cyan} ${num} ${colours.reset}`;
             }
-            return `${colors.gray} ${num} ${colors.reset}`;
+            return `${colours.gray} ${num} ${colours.reset}`;
         }).join(' ');
         
         console.clear();
-        console.log(`\n${colors.bright}🔍 Binary Search - Step ${steps}${colors.reset}`);
-        console.log(colors.magenta + '━'.repeat(50) + colors.reset);
-        console.log(`\n${colors.bright}Target: ${colors.green}${target}${colors.reset}`);
+        console.log(`\n${colours.bright}🔍 Binary Search - Step ${steps}${colours.reset}`);
+        console.log(colours.magenta + '━'.repeat(50) + colours.reset);
+        console.log(`\n${colours.bright}Target: ${colours.green}${target}${colours.reset}`);
         console.log(`\nSearch Progress: ${createProgressBar(((arr.length - (right - left + 1)) / arr.length) * 100, 100)}`);
         console.log('\nArray:');
         console.log(visual);
-        console.log(`\n${colors.bright}Current Search:${colors.reset}`);
-        console.log(`${colors.yellow}Left: ${left}  Middle: ${mid}  Right: ${right}${colors.reset}`);
+        console.log(`\n${colours.bright}Current Search:${colours.reset}`);
+        console.log(`${colours.yellow}Left: ${left}  Middle: ${mid}  Right: ${right}${colours.reset}`);
         
         await displaySearchAttempt(steps, arr[mid], target);
         
@@ -144,10 +144,10 @@ async function animateBinarySearch(arr, target) {
             foundIndex = mid;
             break;
         } else if (arr[mid] < target) {
-            console.log(`\n${colors.blue}Target is larger ⟶ Moving right...${colors.reset}`);
+            console.log(`\n${colours.blue}Target is larger ⟶ Moving right...${colours.reset}`);
             left = mid + 1;
         } else {
-            console.log(`\n${colors.blue}Target is smaller ⟵ Moving left...${colors.reset}`);
+            console.log(`\n${colours.blue}Target is smaller ⟵ Moving left...${colours.reset}`);
             right = mid - 1;
         }
         
@@ -157,43 +157,43 @@ async function animateBinarySearch(arr, target) {
     // Display final results with history
     console.clear();
     console.log(`\n${createSparkles(30)}`);
-    console.log(`\n${colors.bright}Search Complete!${colors.reset}`);
-    console.log(`\n${colors.bright}Target Number: ${colors.green}${target}${colors.reset}`);
-    console.log(`\n${found ? colors.green + '🎯 Target Found!' : colors.red + '❌ Target Not Found'}${colors.reset}`);
-    if (found) console.log(`${colors.bright}Position: ${foundIndex}${colors.reset}`);
-    console.log(`${colors.bright}Steps taken: ${steps}${colors.reset}\n`);
+    console.log(`\n${colours.bright}Search Complete!${colours.reset}`);
+    console.log(`\n${colours.bright}Target Number: ${colours.green}${target}${colours.reset}`);
+    console.log(`\n${found ? colours.green + '🎯 Target Found!' : colours.red + '❌ Target Not Found'}${colours.reset}`);
+    if (found) console.log(`${colours.bright}Position: ${foundIndex}${colours.reset}`);
+    console.log(`${colours.bright}Steps taken: ${steps}${colours.reset}\n`);
     
-    console.log(`${colors.bright}Search History:${colors.reset}`);
+    console.log(`${colours.bright}Search History:${colours.reset}`);
     console.log('━'.repeat(50));
     
     for (let i = 0; i < history.length; i++) {
         const state = history[i];
-        console.log(`\n${colors.bright}Step ${state.step}:${colors.reset}`);
+        console.log(`\n${colours.bright}Step ${state.step}:${colours.reset}`);
         
         // Display array state for this step with bold numbers
         const stepVisual = arr.map((num, index) => {
-            const boldNum = `${colors.bright}${num}${colors.reset}`;
+            const boldNum = `${colours.bright}${num}${colours.reset}`;
             if (index === state.mid) {
-                return `${colors.red}|${boldNum}|${colors.reset}`;
+                return `${colours.red}|${boldNum}|${colours.reset}`;
             }
             if (index === state.left) {
-                return `${colors.yellow}[${boldNum}]${colors.reset}`;
+                return `${colours.yellow}[${boldNum}]${colours.reset}`;
             }
             if (index === state.right) {
-                return `${colors.yellow}[${boldNum}]${colors.reset}`;
+                return `${colours.yellow}[${boldNum}]${colours.reset}`;
             }
             if (index >= state.left && index <= state.right) {
-                return `${colors.cyan} ${boldNum} ${colors.reset}`;
+                return `${colours.cyan} ${boldNum} ${colours.reset}`;
             }
-            return `${colors.gray} ${boldNum} ${colors.reset}`;
+            return `${colours.gray} ${boldNum} ${colours.reset}`;
         }).join(' ');
         
         console.log(stepVisual);
-        console.log(`Checked: ${colors.bright}${state.value}${colors.reset} ${state.direction === 'found' ? 
-            `${colors.green}(Found!)${colors.reset}` : 
+        console.log(`Checked: ${colours.bright}${state.value}${colours.reset} ${state.direction === 'found' ? 
+            `${colours.green}(Found!)${colours.reset}` : 
             state.direction === 'right' ? 
-            `${colors.blue}(Too small)${colors.reset}` : 
-            `${colors.blue}(Too large)${colors.reset}`}`);
+            `${colours.blue}(Too small)${colours.reset}` : 
+            `${colours.blue}(Too large)${colours.reset}`}`);
     }
     
     return { index: foundIndex, steps };
@@ -204,7 +204,7 @@ const size = 15;
 const arr = Array.from({ length: size }, (_, i) => i * 2); // Even numbers
 const target = arr[Math.floor(Math.random() * arr.length)]; // Random target from array
 
-console.log(`${colors.bright}✨ Binary Search Visualization ✨${colors.reset}`);
+console.log(`${colours.bright}✨ Binary Search Visualisation ✨${colours.reset}`);
 console.log(`\nArray: [${arr.join(', ')}]`);
 console.log(`Target: ${target}`);
 console.log('\nPress Enter to start...');
